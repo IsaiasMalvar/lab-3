@@ -19,7 +19,8 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     public Vehicle saveVehicle(Vehicle vehicle) {
-        if(getVehicleById(vehicle.getId()) == null) {
+
+        if(vehiclesList.stream().anyMatch(v -> v.getId().equals(vehicle.getId()))) {
             return null;
         } else {
             vehiclesList.add(vehicle);

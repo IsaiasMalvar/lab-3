@@ -22,17 +22,24 @@ public class VehicleController {
     @GetMapping("/vehicles/{id}")
     public ResponseEntity<?> getVehicleInfoById(@PathVariable Integer id) {
 
-        log.info("Retrieving vehicle");
         try{
             return ResponseEntity.ok(vehicleService.getVehicleById(id));
         } catch (Exception e) {
             return  ResponseEntity.notFound().build();
         }
+    }
 
+    @PostMapping("/vehicles")
+    public ResponseEntity<?> addVehicle(@RequestBody VehicleRequest vehicleRequest) {
+        try{
+            return ResponseEntity.ok(vehicleService.saveVehicle(vehicleRequest));
+        } catch ( Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/vehicles/{id}")
-    public ResponseEntity<?> deleteCarById(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteVehicleById(@PathVariable Integer id) {
 
         log.info("Deleting vehicle");
         try{
@@ -41,24 +48,12 @@ public class VehicleController {
         } catch (Exception e) {
             return  ResponseEntity.notFound().build();
         }
-
-    }
-
-    @PostMapping("/vehicles")
-    public ResponseEntity<?> addCar(@RequestBody VehicleRequest vehicleRequest) {
-        try{
-            vehicleService.saveCar(vehicleRequest);
-            return ResponseEntity.ok().build();
-        } catch ( Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
     }
 
     @PutMapping("/vehicles/{id}")
-    public ResponseEntity<?> updateCarById(@PathVariable Integer id,@RequestBody VehicleRequest vehicleRequest) {
+    public ResponseEntity<?> updateVehicleById(@PathVariable Integer id,@RequestBody VehicleRequest vehicleRequest) {
             try {
-                vehicleService.updateById(id, vehicleRequest);
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok(vehicleService.updateById(id, vehicleRequest));
             } catch (Exception e) {
                 return ResponseEntity.notFound().build();
             }

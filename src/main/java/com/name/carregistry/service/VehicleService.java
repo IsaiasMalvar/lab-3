@@ -11,5 +11,5 @@ public interface VehicleService {
 
     VehicleResponse updateById(Integer id, VehicleRequest vehicleRequest) throws Exception;
 
-    VehicleResponse saveCar(VehicleRequest vehicleRequest) throws Exception;
+    VehicleResponse saveVehicle(VehicleRequest vehicleRequest) throws Exception;
 }

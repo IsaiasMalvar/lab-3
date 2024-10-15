@@ -31,14 +31,20 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public VehicleResponse updateById(Integer id, VehicleRequest vehicleRequest) throws Exception {
-
         Vehicle vehicle = vehicleRepository.updateVehicleById(requestMapper(vehicleRequest), id);
+        if(vehicle == null) {
+            throw new Exception();
+        }
         return responseMapper(vehicle);
+
     }
 
     @Override
-    public VehicleResponse saveCar(VehicleRequest vehicleRequest) throws Exception {
+    public VehicleResponse saveVehicle(VehicleRequest vehicleRequest) throws Exception {
             Vehicle vehicle = vehicleRepository.saveVehicle(requestMapper(vehicleRequest));
+            if(vehicle == null) {
+                throw new Exception("This vehicle has already been registered.");
+            }
             return responseMapper(vehicle);
     }
 
